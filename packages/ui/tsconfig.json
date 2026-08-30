@@ -1,0 +1,7 @@
+{
+  "extends": "@aces/config/typescript/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}
