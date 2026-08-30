@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+/* Tailwind v4 auto-detects sources relative to this file. These directories
+   sit outside app/, so they are registered explicitly or their classes get
+   tree-shaken out of the bundle. That now includes the shared @aces/ui
+   package (workspace root -> packages/ui/src), since its components ship
+   as raw source rather than pre-built CSS. */
+@source "../app";
+@source "../components";
+@source "../data";
+@source "../../../packages/ui/src";
+
+@theme {
+  /* Palette — from the Figma "Colours" style-guide frame. */
+  --color-primary: #002147;
+  --color-secondary: #007fff;
+  --color-tertiary: #f5f7fa;
+  --color-neutral: #1a1a1a;
+  --color-brand-light: #9bcdff;
+  --color-brand-deep: #004c99;
+  --color-muted: #929090;
+  --color-hairline: #a8a8a8;
+
+  /* Status pills on event cards */
+  --color-status-upcoming-bg: #fff09c;
+  --color-status-upcoming-fg: #ffd900;
+  --color-status-done-bg: #c6ffbf;
+  --color-status-done-fg: #18cd00;
+
+  /* Wired to next/font in app/layout.tsx */
+  --font-display:
+    var(--font-stack-sans-notch), var(--font-dm-sans), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Type ramp. Figma reports line-height as "100%", which means 100% of the
+     font's natural leading, not of the font size. Measured node heights
+     confirm a 1.3 ratio throughout: 80->104, 30->39, 150->195, 20->26. */
+  --text-hero: 150px;
+  --text-hero--line-height: 1.3;
+  --text-display: 125px;
+  --text-display--line-height: 1.3;
+  --text-section: 80px;
+  --text-section--line-height: 1.3;
+  --text-card: 30px;
+  --text-card--line-height: 1.3;
+  --text-nav: 25px;
+  --text-nav--line-height: 1.3;
+  --text-body: 20px;
+  --text-body--line-height: 1.3;
+  --text-meta: 15px;
+  --text-meta--line-height: 1.333;
+  --text-pill: 10px;
+  --text-pill--line-height: 1.3;
+
+  --radius-pill: 50px;
+  --radius-card: 30px;
+  --radius-inner: 20px;
+
+  --shadow-card: 0 6px 20px 0 rgb(0 0 0 / 0.25);
+  --shadow-soft: 0 4px 10px 0 rgb(0 0 0 / 0.25);
+  --shadow-glass: 0 4px 4px 0 rgb(0 0 0 / 0.25);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: #000;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+
+  /* Keyboard focus that reads clearly on both light and dark sections */
+  :focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  /* The blue -> deep-blue gradient Figma applies as a TEXT fill */
+  .text-gradient-brand {
+    background-image: linear-gradient(180deg, #007fff 0%, #004c99 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  /* Card surface gradient: #9BCDFF -> #007FFF -> #004C99 */
+  .bg-gradient-brand {
+    background-image: linear-gradient(
+      180deg,
+      #9bcdff 0%,
+      #007fff 50%,
+      #004c99 100%
+    );
+  }
+
+  .bg-gradient-footer {
+    background-image: linear-gradient(180deg, #007fff 0%, #002147 100%);
+  }
+
+  /* Hero backdrop: deep navy -> blue -> transparent white */
+  /* Ends on the tertiary panel colour so the hero dissolves into the About
+     section rather than stopping on a visible seam. */
+  .bg-gradient-hero {
+    background-image: linear-gradient(
+      180deg,
+      #002147 0%,
+      #007fff 25%,
+      #cfe4fb 72%,
+      #f5f7fa 100%
+    );
+  }
+
+  /* Tech-stack pill fill: white -> secondary */
+  .bg-gradient-pill {
+    background-image: linear-gradient(180deg, #ffffff 0%, #007fff 100%);
+  }
+
+  .shadow-inset-light {
+    box-shadow: inset 2px 4px 4px 0 rgb(255 255 255 / 0.25);
+  }
+
+  .shadow-inset-ring {
+    box-shadow:
+      inset -4px 4px 4px 0 rgb(0 127 255 / 0.25),
+      inset 4px -4px 4px 0 rgb(0 127 255 / 0.25);
+  }
+
+  /* Faint 156px lattice used behind the light sections (Figma "Grid"). */
+  .bg-lattice {
+    background-image:
+      linear-gradient(
+        to right,
+        rgb(168 168 168 / 0.25) 0.8px,
+        transparent 0.8px
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(168 168 168 / 0.25) 0.8px,
+        transparent 0.8px
+      );
+    background-size: 156.5px 156.5px;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbars on horizontal scrollers (tech-pill row). */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Soft fade at both ends of a horizontal scroller. */
+  .edge-fade-x {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+  }
+
+  /* Gentle hover lift for cards. */
+  .card-lift {
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .card-lift:hover {
+      transform: translateY(-4px);
+    }
+  }
+}
+
+@layer utilities {
+  /* Entrance + ambient motion. All of it is disabled wholesale by the
+     prefers-reduced-motion block at the bottom of this file. */
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-marquee {
+    animation: marquee 32s linear infinite;
+  }
+  .marquee-paused:hover .animate-marquee {
+    animation-play-state: paused;
+  }
+
+  /* Scroll-reveal: Reveal.tsx toggles data-shown. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Frosted panel that ties copy into the glass-blind scene. */
+  .glass-panel {
+    background: rgb(255 255 255 / 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgb(255 255 255 / 0.6);
+    box-shadow: 0 8px 32px rgb(0 33 71 / 0.12);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass-panel {
+      background: rgb(255 255 255 / 0.82);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

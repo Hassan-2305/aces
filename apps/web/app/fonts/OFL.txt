@@ -1,0 +1,10 @@
+Stack Sans Notch
+Copyright 2025 The Stack Sans Project Authors
+https://github.com/DylanYoungKoto/Stack-Sans
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is available with an FAQ at: https://openfontlicense.org
+
+The full OFL 1.1 text must accompany any redistribution of this font.
+Retrieve it from https://openfontlicense.org and place it alongside this file
+before shipping to production.
