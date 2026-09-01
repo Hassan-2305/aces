@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: General question
+    url: https://github.com/aces-cusat/aces-cusat/discussions
+    about: Ask a question or start a discussion instead of opening an issue.
