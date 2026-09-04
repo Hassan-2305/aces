@@ -42,8 +42,3 @@ Drop a new directory under `apps/`, give it a `package.json` with a
 in the root `package.json`. Reach for `packages/ui` and `packages/types`
 before duplicating something that already exists there.
 
-## License
-
-Code is MIT licensed — see [LICENSE](./LICENSE). Photography, the ACES logo,
-and other brand assets under `apps/web/assets/` are not covered by that
-license and remain the property of ACES CUSAT.
